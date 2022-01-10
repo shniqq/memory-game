@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sortingGroup: {fileID: 29037714959680921}
   _cardPlayDuration: 2
-  _cardPlayEase: 16
+  _cardPlayEase: 15
 --- !u!210 &29037714959680921
 SortingGroup:
   m_ObjectHideFlags: 0

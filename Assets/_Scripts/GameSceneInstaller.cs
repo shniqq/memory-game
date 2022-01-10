@@ -8,8 +8,10 @@ public class GameSceneInstaller : MonoInstaller<GameSceneInstaller>
 
     public override void InstallBindings()
     {
-        Container.BindInterfacesTo<CardStack>().FromInstance(_cardStack);
+        Container.BindInterfacesAndSelfTo<CardStack>().FromInstance(_cardStack);
 
-        Container.BindFactory<int, Card, Card.CardFactory>().FromSubContainerResolve().ByNewContextPrefab<CardInstaller>(_cardPrefab);
+        Container.BindFactory<int, Card, Card.CardFactory>()
+            .FromSubContainerResolve()
+            .ByNewContextPrefab<CardInstaller>(_cardPrefab);
     }
 }

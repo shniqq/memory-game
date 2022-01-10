@@ -23,14 +23,19 @@ public class Card : MonoBehaviour
         }
     }
     private int _index;
+    private int _id;
+    public int Id => _id;
+
+    [Inject] private CardStack _cardManager;
 
     private void Start()
     {
-        Invoke(nameof(PlayCard), _index * 1.2f);
+        _id = Random.Range(0, 4);
     }
 
     public void PlayCard()
     {
+        _cardManager.OnCardPlayed(this);
         DOTween.Sequence().SetEase(_cardPlayEase)
             .Insert(0f, transform.DORotate(new Vector3(0, 180, 0), _cardPlayDuration, RotateMode.WorldAxisAdd))
             .Insert(0f, transform.DOMoveX(-transform.position.x, _cardPlayDuration))
