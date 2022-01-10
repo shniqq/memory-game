@@ -7,8 +7,12 @@ public class CardStack : MonoBehaviour, IInitializable
 {
     [SerializeField] private uint _cardAmount;
     [SerializeField, Range(0, 0.5f)] private float _spacing;
+    [SerializeField, Range(0, 5f)] private float _introDuration;
 
-    [Inject] private Card.CardFactory _cardFactory;
+    [SerializeField] private Intro _intro;
+
+    [Inject] private CardInstaller.CardFactory _cardFactory;
+    [Inject] private Score _score;
 
     private readonly Queue<Card> _cards = new();
     private Card _lastPlayedCard;
@@ -17,12 +21,21 @@ public class CardStack : MonoBehaviour, IInitializable
     {
         for (var i = 0; i < _cardAmount; i++)
         {
-            var card = _cardFactory.Create(i);
-            card.transform.position = Vector3.right * _spacing * i;
+            var card = _cardFactory.Create(i, Vector3.right * _spacing * i);
             _cards.Enqueue(card);
         }
-        
-        Invoke(nameof(PlayNextCard), 2f);
+
+        _intro.StartIntro(() => Invoke(nameof(StartGame), 1f));
+    }
+
+    private void StartGame()
+    {
+        foreach (var card in _cards)
+        {
+            card.PlayIntroAnimation(_introDuration);
+        }
+
+        Invoke(nameof(PlayNextCard), _introDuration);
     }
 
     public void OnCardPlayed(Card id)
@@ -30,11 +43,29 @@ public class CardStack : MonoBehaviour, IInitializable
         _lastPlayedCard = _cards.Dequeue();
     }
 
-    public void PlayNextCard()
+    public void OnDecidedEqualCard()
+    {
+        _score.OnPlayerChoice(IsLastCardSameAsCurrent());
+        PlayNextCard();
+    }
+
+    public void OnDecidedDifferentCard()
+    {
+        _score.OnPlayerChoice(!IsLastCardSameAsCurrent());
+        PlayNextCard();
+    }
+
+    private bool IsLastCardSameAsCurrent()
+    {
+        return _lastPlayedCard.Id == _cards.Peek().Id;
+    }
+
+    private void PlayNextCard()
     {
         if (_cards.Any())
         {
-            _cards.Peek().PlayCard();
+            _lastPlayedCard = _cards.Peek();
+            _lastPlayedCard.PlayCard();
         }
     }
 }

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cfc577807844442c5b4b92d7d2fa03fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c3cf0340f2486465093eb03a3ac35f70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -222,6 +222,8 @@ MonoBehaviour:
   _sortingGroup: {fileID: 29037714959680921}
   _cardPlayDuration: 2
   _cardPlayEase: 15
+  _frontBackground: {fileID: 29037714720011961}
+  _icon: {fileID: 29037715022824235}
 --- !u!210 &29037714959680921
 SortingGroup:
   m_ObjectHideFlags: 0
