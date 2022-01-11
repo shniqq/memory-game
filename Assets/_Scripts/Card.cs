@@ -25,6 +25,7 @@ public class Card : MonoBehaviour
     [Inject] private CardStack _cardManager;
     [Inject] private Vector3 _position;
     [Inject] private ICardConfigProvider _cardConfigProvider;
+    [Inject] private IColorProvider _cardColorProvider;
 
     private int _index;
     public int Id { get; private set; }
@@ -37,7 +38,7 @@ public class Card : MonoBehaviour
         
         transform.position = Vector3.down * 30f + Vector3.back * 10f;
 
-        _frontBackground.color = Random.ColorHSV();
+        _frontBackground.color = _cardColorProvider.GetCardColor(_index);
     }
 
     public void PlayIntroAnimation(float duration)
