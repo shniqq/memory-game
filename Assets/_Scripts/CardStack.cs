@@ -57,7 +57,7 @@ public class CardStack : MonoBehaviour, IInitializable
 
     private bool IsLastCardSameAsCurrent()
     {
-        return _lastPlayedCard.Id == _cards.Peek().Id;
+        return _cards.Any() && _lastPlayedCard.Id == _cards.Peek().Id;
     }
 
     private void PlayNextCard()
