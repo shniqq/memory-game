@@ -655,7 +655,7 @@ Camera:
   m_BackGroundColor: {r: 0.9490196, g: 0.9098039, b: 0.8117647, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -781,7 +781,11 @@ MonoBehaviour:
   _cardStack: {fileID: 64257006}
   _cardPrefab: {fileID: -2920164665471428512, guid: 698e3d3bd862f4ca18203ff958ff6220, type: 3}
   _cardConfigProvider: {fileID: 11400000, guid: 1f1bf135ee53a4d64930f2b392ddb990, type: 2}
-  _colorProvider: {fileID: 11400000, guid: c5369c92232ad4da49a91b0af0810122, type: 2}
+  _colorProviders:
+  - {fileID: 11400000, guid: c5369c92232ad4da49a91b0af0810122, type: 2}
+  - {fileID: 11400000, guid: be90a7b661d2b4662afdd2103acb8471, type: 2}
+  - {fileID: 11400000, guid: acd20fac67cea404a8235243157cf54f, type: 2}
+  - {fileID: 11400000, guid: b98e7e957c6bf431381ee6e5d3f3e8fe, type: 2}
   _feedback: {fileID: 1586493893}
   _background: {fileID: 1033797353}
 --- !u!1 &1033797349
