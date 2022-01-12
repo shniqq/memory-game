@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.dbrizov.naughtyattributes": {
+      "version": "https://github.com/dbrizov/NaughtyAttributes.git#v2.1.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6ff42768879f6d3721f27c1fc1ba0c1d145a3f27"
+    },
     "com.svermeulen.extenject": {
       "version": "https://github.com/Mathijs-Bakker/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject#9.2.1",
       "depth": 0,
