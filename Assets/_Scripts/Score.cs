@@ -49,7 +49,7 @@ public class Score : MonoBehaviour
     {
         _score++;
         DisplayScore();
-        _scoreText.rectTransform.DOScale(1.25f, 0.25f).SetLoops(2, LoopType.Yoyo);
+        _scoreText.rectTransform.DOScale(1.25f, 0.25f).SetLoops(2, LoopType.Yoyo).ChangeStartValue(Vector3.one);
 
         var feedback = new List<FeedbackType>();
 

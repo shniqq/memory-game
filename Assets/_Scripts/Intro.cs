@@ -11,6 +11,7 @@ public class Intro : MonoBehaviour
     {
         var introTextSequence = _introText.rectTransform
             .DOScale(1.1f, 3f)
+            .ChangeStartValue(Vector3.one)
             .SetEase(Ease.Linear)
             .OnStart(() => _introText.text =
                 "Identify if the new card is equal to the previous one by using the buttons below");
