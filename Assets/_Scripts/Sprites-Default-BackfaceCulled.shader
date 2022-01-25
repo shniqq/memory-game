@@ -39,7 +39,7 @@ Shader "Custom/Sprites/Default-BackfaceCulled"
         float2 texcoord : TEXCOORD0;
       };
 
-      struct v2f
+      struct v2_f
       {
         float4 vertex   : SV_POSITION;
         fixed4 color    : COLOR;
@@ -48,9 +48,9 @@ Shader "Custom/Sprites/Default-BackfaceCulled"
       
       fixed4 _Color;
 
-      v2f vert(appdata_t IN)
+      v2_f vert(appdata_t IN)
       {
-        v2f OUT;
+        v2_f OUT;
         OUT.vertex = UnityObjectToClipPos(IN.vertex);
         OUT.texcoord = IN.texcoord;
         OUT.color = IN.color * _Color;
@@ -76,7 +76,7 @@ Shader "Custom/Sprites/Default-BackfaceCulled"
         return color;
       }
 
-      fixed4 frag(v2f IN) : SV_Target
+      fixed4 frag(v2_f IN) : SV_Target
       {
         fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
         c.rgb *= c.a;

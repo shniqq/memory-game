@@ -26,7 +26,7 @@ public class Card : MonoBehaviour
     [Inject] private CardStack _cardManager;
     [Inject] private Vector3 _position;
     [Inject] private ICardConfigProvider _cardConfigProvider;
-    [Inject] private IColorProvider _cardColorProvider;
+    [Inject] private ICardColorProvider _cardColorProvider;
 
     private int _index;
     public int Id { get; private set; }

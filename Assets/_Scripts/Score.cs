@@ -10,7 +10,7 @@ public class Score : MonoBehaviour
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private float _quickFeedbackThreshold;
     [SerializeField] private float _veryQuickFeedbackThreshold;
-    [SerializeField] private int _steakFeedbackThreshold;
+    [SerializeField] private int _streakFeedbackThreshold;
 
     [Inject] private Feedback _feedback;
 
@@ -67,7 +67,7 @@ public class Score : MonoBehaviour
             _streak++;
         }
 
-        if (_streak >= _steakFeedbackThreshold)
+        if (_streak >= _streakFeedbackThreshold)
         {
             feedback.Add(FeedbackType.Streak);
         }

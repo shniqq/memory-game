@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Color Provider")]
-public class ColorProvider : ScriptableObject, IColorProvider
+public class ColorProvider : ScriptableObject, ICardColorProvider, IBackgroundColorProvider
 {
     [SerializeField] private Color[] _cardColors;
     [SerializeField] private Color _backgroundColor;

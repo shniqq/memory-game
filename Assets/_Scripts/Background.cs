@@ -9,7 +9,7 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer _backgroundSpriteRenderer;
     [SerializeField, Range(0, 1)] private float _alpha;
 
-    [Inject] private IColorProvider _colorProvider;
+    [Inject] private IBackgroundColorProvider _colorProvider;
 
     private void Awake()
     {
