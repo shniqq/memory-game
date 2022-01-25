@@ -66,6 +66,7 @@ public class CardStack : MonoBehaviour, IInitializable
         {
             _lastPlayedCard = _cards.Peek();
             _lastPlayedCard.PlayCard();
+            OnCardPlayed(_lastPlayedCard);
         }
     }
 }

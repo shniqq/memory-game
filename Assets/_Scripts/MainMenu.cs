@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private Canvas _mainMenuCanvas;
-    
 
     [Inject] private ZenjectSceneLoader _sceneLoader;
 

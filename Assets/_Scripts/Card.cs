@@ -23,7 +23,6 @@ public class Card : MonoBehaviour
         }
     }
 
-    [Inject] private CardStack _cardManager;
     [Inject] private Vector3 _position;
     [Inject] private ICardConfigProvider _cardConfigProvider;
     [Inject] private ICardColorProvider _cardColorProvider;
@@ -73,8 +72,6 @@ public class Card : MonoBehaviour
 
     public void PlayCard()
     {
-        _cardManager.OnCardPlayed(this);
-
         PlayRandomCardSound();
         DOTween.Sequence().SetEase(_cardPlayEase)
             .Insert(0f, transform.DORotate(new Vector3(0, 180, 0), _cardPlayDuration, RotateMode.WorldAxisAdd))
