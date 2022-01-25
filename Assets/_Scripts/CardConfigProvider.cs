@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,16 +12,13 @@ public class CardConfigProvider : ScriptableObject, ICardConfigProvider
 
     private int _lastCard;
 
-    public Tuple<int, Sprite> GetConfig()
+    public Sprite GetConfig(int id)
     {
-        var replayLastCard = Random.Range(0, 3) > 1;
-        var id = replayLastCard ? _lastCard : Random.Range(0, _sprites.Length);
-        _lastCard = id;
-        return new Tuple<int, Sprite>(id, _sprites.ElementAt(id));
+        return _sprites.ElementAt(id);
     }
 
 #if UNITY_EDITOR
-    [Button(enabledMode: EButtonEnableMode.Editor)]
+    [Button(enabledMode: EButtonEnableMode.Editor), UsedImplicitly]
     private void FillConfigFromFolder()
     {
         var path = UnityEditor.EditorUtility.OpenFolderPanel("Select Folder to add Sprites from", Application.dataPath, "");

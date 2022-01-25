@@ -668,13 +668,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _score: {fileID: 54789988}
   _cardStack: {fileID: 64257006}
-  _cardPrefab: {fileID: -2920164665471428512, guid: 698e3d3bd862f4ca18203ff958ff6220, type: 3}
   _cardConfigProviders:
   - {fileID: 11400000, guid: 5b7fecbe281324f098bec2d1dcb9b72d, type: 2}
   - {fileID: 11400000, guid: 1f1bf135ee53a4d64930f2b392ddb990, type: 2}
-  - {fileID: 11400000, guid: 5577a8e73fc674584a276d37b969162b, type: 2}
   _feedback: {fileID: 1586493893}
-  _background: {fileID: 0}
 --- !u!1 &1477008861
 GameObject:
   m_ObjectHideFlags: 0

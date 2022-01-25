@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface ICardConfigProvider
 {
-    Tuple<int, Sprite> GetConfig();
+    Sprite GetConfig(int id);
 }

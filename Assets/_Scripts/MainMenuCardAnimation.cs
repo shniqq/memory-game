@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Card;
 using UnityEngine;
 
 public class MainMenuCardAnimation : MonoBehaviour
 {
-    [SerializeField] private Card _cardPrefab;
+    [SerializeField] private CardView _cardPrefab;
     [SerializeField] private float _intoAnimationDuration;
     
     [SerializeField] private uint _amount;
@@ -11,7 +12,7 @@ public class MainMenuCardAnimation : MonoBehaviour
     
     private void Awake()
     {
-        var cards = new List<Card>();
+        var cards = new List<CardView>();
         for (var i = 0; i < _amount; i++)
         {
             var card = Instantiate(_cardPrefab);

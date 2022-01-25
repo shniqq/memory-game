@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Card;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class CardStack : MonoBehaviour, IInitializable
 {
@@ -14,14 +17,15 @@ public class CardStack : MonoBehaviour, IInitializable
     [Inject] private CardInstaller.CardFactory _cardFactory;
     [Inject] private Score _score;
 
-    private readonly Queue<Card> _cards = new();
-    private Card _lastPlayedCard;
+    private readonly Queue<Tuple<CardModel, CardView>> _cards = new();
+    private Tuple<CardModel, CardView> _lastPlayedCard;
 
     public void Initialize()
     {
         for (var i = 0; i < _cardAmount; i++)
         {
-            var card = _cardFactory.Create(i, Vector3.right * _spacing * i);
+            var card = _cardFactory.Create(
+                new CardInstaller.CardConstructArguments(Random.Range(0, 3), i, Vector3.right * _spacing * i));
             _cards.Enqueue(card);
         }
 
@@ -32,15 +36,10 @@ public class CardStack : MonoBehaviour, IInitializable
     {
         foreach (var card in _cards)
         {
-            card.PlayIntroAnimation(_introDuration);
+            card.Item2.PlayIntroAnimation(_introDuration);
         }
 
         Invoke(nameof(PlayNextCard), _introDuration);
-    }
-
-    public void OnCardPlayed(Card id)
-    {
-        _lastPlayedCard = _cards.Dequeue();
     }
 
     public void OnDecidedEqualCard()
@@ -57,7 +56,7 @@ public class CardStack : MonoBehaviour, IInitializable
 
     private bool IsLastCardSameAsCurrent()
     {
-        return _cards.Any() && _lastPlayedCard.Id == _cards.Peek().Id;
+        return _cards.Any() && _lastPlayedCard.Item1.ID == _cards.Peek().Item1.ID;
     }
 
     private void PlayNextCard()
@@ -65,8 +64,8 @@ public class CardStack : MonoBehaviour, IInitializable
         if (_cards.Any())
         {
             _lastPlayedCard = _cards.Peek();
-            _lastPlayedCard.PlayCard();
-            OnCardPlayed(_lastPlayedCard);
+            _lastPlayedCard.Item2.PlayCard();
+            _lastPlayedCard = _cards.Dequeue();
         }
     }
 }
