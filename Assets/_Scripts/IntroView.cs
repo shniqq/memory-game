@@ -1,13 +1,23 @@
 using System;
 using DG.Tweening;
 using TMPro;
+using UniRx;
 using UnityEngine;
 
-public class Intro : MonoBehaviour
+public class IntroView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _introText;
 
-    public void StartIntro(Action onIntroFinished)
+    public IObservable<Unit> OnIntoFinished => _onIntroFinished;
+    private readonly Subject<Unit> _onIntroFinished = new();
+
+    private void Start()
+    {
+        _onIntroFinished.AddTo(this);
+        StartIntro();
+    }
+
+    private void StartIntro()
     {
         var introTextSequence = _introText.rectTransform
             .DOScale(1.1f, 3f)
@@ -24,7 +34,8 @@ public class Intro : MonoBehaviour
             .OnComplete(() =>
             {
                 _introText.gameObject.SetActive(false);
-                onIntroFinished.Invoke();
+                _onIntroFinished.OnNext(Unit.Default);
+                _onIntroFinished.OnCompleted();
             });
     }
 

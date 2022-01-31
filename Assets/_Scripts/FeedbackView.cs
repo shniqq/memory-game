@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Feedback : MonoBehaviour
+public class FeedbackView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
 

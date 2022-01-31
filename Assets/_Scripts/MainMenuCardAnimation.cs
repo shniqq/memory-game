@@ -5,7 +5,6 @@ using UnityEngine;
 public class MainMenuCardAnimation : MonoBehaviour
 {
     [SerializeField] private CardView _cardPrefab;
-    [SerializeField] private float _intoAnimationDuration;
     
     [SerializeField] private uint _amount;
     
@@ -21,7 +20,7 @@ public class MainMenuCardAnimation : MonoBehaviour
         
         foreach (var card in cards)
         {
-            card.PlayIntroAnimation(_intoAnimationDuration);
+            card.PlayIntroAnimation();
         }
     }
 }

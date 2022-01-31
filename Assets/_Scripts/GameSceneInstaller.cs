@@ -1,19 +1,31 @@
+using CardStack;
 using UnityEngine;
 using Zenject;
 
 public class GameSceneInstaller : MonoInstaller<GameSceneInstaller>
 {
     [SerializeField] private Score _score;
-    [SerializeField] private CardStack _cardStack;
+    [SerializeField] private CardStackView _cardStackView;
     [SerializeField] private CardConfigProvider[] _cardConfigProviders;
-    [SerializeField] private Feedback _feedback;
+    [SerializeField] private FeedbackView _feedbackView;
+    [SerializeField] private IntroView _introView;
+    [SerializeField] private DecisionInputView _decisionInputView;
+    
+    [SerializeField] private uint _cardAmount;
 
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<CardStack>().FromInstance(_cardStack);
+        Container.BindInterfacesAndSelfTo<CardStackView>().FromInstance(_cardStackView);
+        Container.BindInterfacesAndSelfTo<CardStackModel>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CardStackController>().AsSingle().NonLazy();
+        Container.BindInstance(_cardAmount).WhenInjectedInto<CardStackModel>();
+        
+        
         Container.BindInterfacesAndSelfTo<CardConfigProvider>()
             .FromInstance(_cardConfigProviders[Random.Range(0, _cardConfigProviders.Length)]);
         Container.BindInstance(_score).AsSingle();
-        Container.BindInstance(_feedback).AsSingle();
+        Container.BindInstance(_introView).AsSingle();
+        Container.BindInstance(_feedbackView).AsSingle();
+        Container.BindInstance(_decisionInputView).AsSingle();
     }
 }

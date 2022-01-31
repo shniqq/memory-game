@@ -1,9 +1,7 @@
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Game/Animal Card Provider")]
 public class CardConfigProvider : ScriptableObject, ICardConfigProvider

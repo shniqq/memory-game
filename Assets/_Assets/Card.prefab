@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sortingGroup: {fileID: 29037714959680921}
   _cardPlayDuration: 2
+  _introDuration: 2
   _cardPlayEase: 15
   _frontBackground: {fileID: 29037714720011961}
   _icon: {fileID: 29037715022824235}

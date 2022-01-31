@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Zenject;
@@ -10,6 +12,7 @@ namespace Card
     {
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField, Range(0, 5)] private float _cardPlayDuration;
+        [SerializeField, Range(0, 5f)] private float _introDuration;
         [SerializeField] private Ease _cardPlayEase;
         [SerializeField] private SpriteRenderer _frontBackground;
         [SerializeField] private SpriteRenderer _icon;
@@ -17,12 +20,12 @@ namespace Card
         [SerializeField] private AudioSource _audioSource;
 
         [Inject]
-        public int Index
+        public uint Index
         {
             set
             {
-                _index = value;
-                _sortingGroup.sortingOrder = -value;
+                _index = (int)value;
+                _sortingGroup.sortingOrder = -(int)value;
             }
         }
 
@@ -37,17 +40,21 @@ namespace Card
 
         private int _index;
 
-        private void Start()
+        public IObservable<Unit> OnCompletedIntroAnimation => _onCompletedIntroAnimation;
+        private readonly Subject<Unit> _onCompletedIntroAnimation = new();
+
+        private void Awake()
         {
+            _onCompletedIntroAnimation.AddTo(this);
             transform.position = Vector3.down * 30f + Vector3.back * 10f;
 
             _frontBackground.color = _cardColorProvider.GetCardColor(_index);
         }
 
-        public void PlayIntroAnimation(float duration)
+        public void PlayIntroAnimation()
         {
             DOTween.Sequence()
-                .Insert(0f, transform.DOMoveY(_position.y, duration * 0.6f).SetEase(Ease.OutBack))
+                .Insert(0f, transform.DOMoveY(_position.y, _introDuration * 0.6f).SetEase(Ease.OutBack))
                 .InsertCallback(0f, () =>
                 {
                     if (_index == 0)
@@ -55,9 +62,9 @@ namespace Card
                         PlayRandomCardSound();
                     }
                 })
-                .Insert(duration * 0.6f, transform.DOMoveX(_position.x, duration * 0.3f).SetEase(Ease.Linear))
-                .Insert(duration * 0.6f, transform.DOMoveZ(_position.z, duration * 0.3f).SetEase(Ease.Linear))
-                .InsertCallback(duration * 0.6f, () =>
+                .Insert(_introDuration * 0.6f, transform.DOMoveX(_position.x, _introDuration * 0.3f).SetEase(Ease.Linear))
+                .Insert(_introDuration * 0.6f, transform.DOMoveZ(_position.z, _introDuration * 0.3f).SetEase(Ease.Linear))
+                .InsertCallback(_introDuration * 0.6f, () =>
                 {
                     if (_index == 0)
                     {
@@ -70,6 +77,11 @@ namespace Card
                         Invoke(nameof(PlayRandomCardSound), 0.7f);
                         Invoke(nameof(PlayRandomCardSound), 0.8f);
                     }
+                })
+                .OnComplete(() =>
+                {
+                    _onCompletedIntroAnimation.OnNext(Unit.Default);
+                    _onCompletedIntroAnimation.OnCompleted();
                 });
         }
 

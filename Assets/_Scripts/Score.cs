@@ -12,7 +12,7 @@ public class Score : MonoBehaviour
     [SerializeField] private float _veryQuickFeedbackThreshold;
     [SerializeField] private int _streakFeedbackThreshold;
 
-    [Inject] private Feedback _feedback;
+    [Inject] private FeedbackView _feedbackView;
 
     private int _score;
     private bool _wasLastScoreRight;
@@ -42,7 +42,7 @@ public class Score : MonoBehaviour
     {
         _wasLastScoreRight = false;
         _streak = 0;
-        _feedback.ShowFeedback(FeedbackType.Wrong);
+        _feedbackView.ShowFeedback(FeedbackType.Wrong);
     }
 
     private void OnPlayerChoseRight()
@@ -73,7 +73,7 @@ public class Score : MonoBehaviour
         }
 
         _wasLastScoreRight = true;
-        _feedback.ShowFeedback(feedback.ToArray());
+        _feedbackView.ShowFeedback(feedback.ToArray());
     }
 
     private void DisplayScore()

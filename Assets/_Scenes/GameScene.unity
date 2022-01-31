@@ -304,10 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94e9933ebd1842fba72f3a103c30dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardAmount: 20
-  _spacing: 0.3
-  _introDuration: 2
-  _intro: {fileID: 2093971153}
 --- !u!4 &64257007
 Transform:
   m_ObjectHideFlags: 0
@@ -406,19 +402,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 136185793}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 64257006}
-        m_TargetAssemblyTypeName: CardStack, Assembly-CSharp
-        m_MethodName: OnDecidedDifferentCard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &136185793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,8 +544,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 907060415}
+  - component: {fileID: 907060416}
   m_Layer: 5
-  m_Name: Layout
+  m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,6 +574,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -100, y: 150}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &907060416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907060414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0392e23927f4b15a77f39d2f9e24e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equalDecisionButton: {fileID: 2080532719}
+  _differentDecisionButton: {fileID: 136185792}
 --- !u!1 &996840780
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,11 +666,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: {fileID: 54789988}
-  _cardStack: {fileID: 64257006}
+  _cardStackView: {fileID: 64257006}
   _cardConfigProviders:
   - {fileID: 11400000, guid: 5b7fecbe281324f098bec2d1dcb9b72d, type: 2}
   - {fileID: 11400000, guid: 1f1bf135ee53a4d64930f2b392ddb990, type: 2}
-  _feedback: {fileID: 1586493893}
+  _feedbackView: {fileID: 1586493893}
+  _introView: {fileID: 2093971153}
+  _decisionInputView: {fileID: 907060416}
+  _cardAmount: 20
 --- !u!1 &1477008861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,19 +1399,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2080532720}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 64257006}
-        m_TargetAssemblyTypeName: CardStack, Assembly-CSharp
-        m_MethodName: OnDecidedEqualCard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2080532720
 MonoBehaviour:
   m_ObjectHideFlags: 0
