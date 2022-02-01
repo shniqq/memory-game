@@ -27,6 +27,7 @@ namespace MemoryGame
             Container.BindInterfacesTo<HudController>().AsSingle().NonLazy();
 
             Container.BindInterfacesTo<GameFinishedController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameStateModel>().AsSingle();
         
             Container.BindInterfacesAndSelfTo<CardConfigProvider>()
                 .FromInstance(_cardConfigProviders[Random.Range(0, _cardConfigProviders.Length)]);

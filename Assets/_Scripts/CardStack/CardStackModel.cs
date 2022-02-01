@@ -13,6 +13,8 @@ namespace MemoryGame.CardStack
     {
         [Inject] private CardInstaller.CardFactory _cardFactory;
         [Inject] private Score _score;
+        [Inject] private GameStateModel _gameStateModel;
+        
 
         private readonly uint _cardAmount;
         private readonly float _spacing;
@@ -39,9 +41,14 @@ namespace MemoryGame.CardStack
             }
 
             _cardsLeft.Value = _cards.Count;
+            _gameStateModel.GameState.Pairwise()
+                .Where(pair => pair.Previous == GameState.Intro && pair.Current == GameState.Playing)
+                .Subscribe(_ => PlayNextCard());
+            CardsLeft.Pairwise().Where(pair => pair.Previous > 0 && pair.Current == 0)
+                .Subscribe(_ => _gameStateModel.SetEnded());
         }
 
-        public void PlayNextCard()
+        private void PlayNextCard()
         {
             if (_cards.Any())
             {

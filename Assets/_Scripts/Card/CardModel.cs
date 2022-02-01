@@ -1,21 +1,20 @@
 using System;
-using MemoryGame.CardStack;
 using UniRx;
 
 namespace MemoryGame.Card
 {
     public class CardModel
     {
-        private readonly CardStackModel _cardStackModel;
+        private readonly GameStateModel _gameStateModel;
         public uint Index { get; }
         public int ID { get; }
 
         public IObservable<Unit> OnPlayedCard => _onPlayedCard;
         private readonly Subject<Unit> _onPlayedCard = new();
 
-        public CardModel(int id, uint index, CardStackModel cardStackModel)
+        public CardModel(int id, uint index, GameStateModel gameStateModel)
         {
-            _cardStackModel = cardStackModel;
+            _gameStateModel = gameStateModel;
             Index = index;
             ID = id;
         }
@@ -29,7 +28,7 @@ namespace MemoryGame.Card
         {
             if (Index == 0)
             {
-                _cardStackModel.PlayNextCard();
+                _gameStateModel.SetPlaying();
             }
         }
     }
