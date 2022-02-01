@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Card
+namespace MemoryGame.Card
 {
     public class CardInstaller : MonoInstaller<CardInstaller>
     {

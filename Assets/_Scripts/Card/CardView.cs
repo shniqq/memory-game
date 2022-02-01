@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Card
+namespace MemoryGame.Card
 {
     public class CardView : MonoBehaviour
     {

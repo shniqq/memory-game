@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IBackgroundColorProvider
+namespace MemoryGame
 {
-    public Color GetBackgroundColor();
+    public interface IBackgroundColorProvider
+    {
+        public Color GetBackgroundColor();
+    }
 }

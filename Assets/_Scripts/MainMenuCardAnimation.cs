@@ -1,26 +1,29 @@
 using System.Collections.Generic;
-using Card;
+using MemoryGame.Card;
 using UnityEngine;
 
-public class MainMenuCardAnimation : MonoBehaviour
+namespace MemoryGame
 {
-    [SerializeField] private CardView _cardPrefab;
-    
-    [SerializeField] private uint _amount;
-    
-    
-    private void Awake()
+    public class MainMenuCardAnimation : MonoBehaviour
     {
-        var cards = new List<CardView>();
-        for (var i = 0; i < _amount; i++)
+        [SerializeField] private CardView _cardPrefab;
+    
+        [SerializeField] private uint _amount;
+    
+    
+        private void Awake()
         {
-            var card = Instantiate(_cardPrefab);
-            cards.Add(card);
-        }
+            var cards = new List<CardView>();
+            for (var i = 0; i < _amount; i++)
+            {
+                var card = Instantiate(_cardPrefab);
+                cards.Add(card);
+            }
         
-        foreach (var card in cards)
-        {
-            card.PlayIntroAnimation();
+            foreach (var card in cards)
+            {
+                card.PlayIntroAnimation();
+            }
         }
     }
 }

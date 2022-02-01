@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CardStack
+namespace MemoryGame.CardStack
 {
     public class CardStackView : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using System;
-using CardStack;
+using MemoryGame.CardStack;
 using UniRx;
 
-namespace Card
+namespace MemoryGame.Card
 {
     public class CardModel
     {

@@ -1,7 +1,7 @@
-using Zenject;
 using UniRx;
+using Zenject;
 
-namespace Card
+namespace MemoryGame.Card
 {
     public class CardController : IInitializable
     {

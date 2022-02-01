@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface ICardConfigProvider
+namespace MemoryGame
 {
-    Sprite GetConfig(int id);
+    public interface ICardConfigProvider
+    {
+        Sprite GetConfig(int id);
+    }
 }

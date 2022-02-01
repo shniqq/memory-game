@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface ICardColorProvider
+namespace MemoryGame
 {
-    public Color GetCardColor(int index);
+    public interface ICardColorProvider
+    {
+        public Color GetCardColor(int index);
+    }
 }

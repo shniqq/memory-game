@@ -1,7 +1,10 @@
-public enum FeedbackType
+namespace MemoryGame
 {
-    Quick,
-    VeryQuick,
-    Wrong,
-    Streak
+    public enum FeedbackType
+    {
+        Quick,
+        VeryQuick,
+        Wrong,
+        Streak
+    }
 }

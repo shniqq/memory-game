@@ -1,18 +1,21 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Color Provider")]
-public class ColorProvider : ScriptableObject, ICardColorProvider, IBackgroundColorProvider
+namespace MemoryGame
 {
-    [SerializeField] private Color[] _cardColors;
-    [SerializeField] private Color _backgroundColor;
-
-    public Color GetBackgroundColor()
+    [CreateAssetMenu(menuName = "Game/Color Provider")]
+    public class ColorProvider : ScriptableObject, ICardColorProvider, IBackgroundColorProvider
     {
-        return _backgroundColor;
-    }
+        [SerializeField] private Color[] _cardColors;
+        [SerializeField] private Color _backgroundColor;
 
-    public Color GetCardColor(int index)
-    {
-        return _cardColors[(int)Mathf.Repeat(index, _cardColors.Length)];
+        public Color GetBackgroundColor()
+        {
+            return _backgroundColor;
+        }
+
+        public Color GetCardColor(int index)
+        {
+            return _cardColors[(int)Mathf.Repeat(index, _cardColors.Length)];
+        }
     }
 }

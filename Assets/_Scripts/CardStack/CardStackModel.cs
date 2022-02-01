@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Card;
+using MemoryGame.Card;
 using UnityEngine;
 using Zenject;
 
-namespace CardStack
+namespace MemoryGame.CardStack
 {
     public class CardStackModel : IInitializable
     {

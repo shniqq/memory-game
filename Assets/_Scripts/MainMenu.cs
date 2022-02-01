@@ -4,19 +4,22 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-public class MainMenu : MonoBehaviour
+namespace MemoryGame
 {
-    [SerializeField] private Button _playButton;
-    [SerializeField] private Canvas _mainMenuCanvas;
-
-    [Inject] private ZenjectSceneLoader _sceneLoader;
-
-    private void Awake()
+    public class MainMenu : MonoBehaviour
     {
-        _playButton.OnClickAsObservable().Subscribe(_ =>
+        [SerializeField] private Button _playButton;
+        [SerializeField] private Canvas _mainMenuCanvas;
+
+        [Inject] private ZenjectSceneLoader _sceneLoader;
+
+        private void Awake()
         {
-            _sceneLoader.LoadScene("GameScene", LoadSceneMode.Additive, containerMode: LoadSceneRelationship.Child);
-            _mainMenuCanvas.enabled = false;
-        }).AddTo(this);
+            _playButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                _sceneLoader.LoadScene("GameScene", LoadSceneMode.Additive, containerMode: LoadSceneRelationship.Child);
+                _mainMenuCanvas.enabled = false;
+            }).AddTo(this);
+        }
     }
 }
