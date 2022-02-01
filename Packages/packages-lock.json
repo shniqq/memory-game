@@ -15,11 +15,11 @@
       "url": "https://package.openupm.com"
     },
     "com.shniqq.hierarchy-labels": {
-      "version": "1.0.0",
+      "version": "https://github.com/shniqq/hierarchy-labels.git#develop",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {},
-      "url": "https://package.openupm.com"
+      "hash": "3df1bbe9cd42847ec2a9a8fe137d6890358933d6"
     },
     "com.svermeulen.extenject": {
       "version": "https://github.com/Mathijs-Bakker/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject#9.2.1",

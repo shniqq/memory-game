@@ -17,18 +17,29 @@ MonoBehaviour:
   _fontSizeFactor: 0.8
   _separator: '|'
   _hierarchyLabelRules:
-  - rid: 8623245936368287744
+  - rid: 2043279675923103747
+  - rid: 2043279675923103749
   _foldoutRules: 1
-  _selectedRuleIndex: 0
+  _selectedRuleIndex: 2
   references:
     version: 2
     RefIds:
-    - rid: 8623245936368287744
-      type: {class: DisplayScriptsFromSpecifiedAssemblyHierarchyRule, ns: HierarchyLabels.BuiltInRules, asm: HierarchyLabels.Runtime}
+    - rid: 2043279675923103747
+      type: {class: DisplayScriptsFromSpecifiedAssemblyHierarchyRule, ns: HierarchyLabels.BuiltInRules, asm: HierarchyLabels.Editor}
       data:
         _styleProviderProvider:
-          rid: 8623245936368287747
-        AssemblyName: Assembly-CSharp
-        _assemblyFullName: 0
-    - rid: 8623245936368287747
-      type: {class: DefaultLabelStyleProvider, ns: HierarchyLabels.BuiltInStyles, asm: HierarchyLabels.Runtime}
+          rid: 2043279675923103748
+        AssemblyName: Memory-Game
+        _assemblyFullName: 1
+    - rid: 2043279675923103748
+      type: {class: DefaultLabelStyleProvider, ns: HierarchyLabels.BuiltInStyles, asm: HierarchyLabels.Editor}
+    - rid: 2043279675923103749
+      type: {class: InheritsFromHierarchyLabelRule, ns: HierarchyLabels.BuiltInRules, asm: HierarchyLabels.Editor}
+      data:
+        _styleProviderProvider:
+          rid: 2043279675923103751
+        _baseTypeName: MonoInstaller
+    - rid: 2043279675923103751
+      type: {class: ColorLabelStyleProvider, ns: HierarchyLabels.BuiltInStyles, asm: HierarchyLabels.Editor}
+      data:
+        _color: {r: 0.90933144, g: 1, b: 0, a: 1}
