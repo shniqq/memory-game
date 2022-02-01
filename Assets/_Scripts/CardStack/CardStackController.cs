@@ -6,13 +6,11 @@ namespace MemoryGame.CardStack
     public class CardStackController : IInitializable
     {
         private readonly CardStackModel _model;
-        private readonly IntroView _introView;
         private readonly DecisionInputView _decisionInputView;
 
-        public CardStackController(CardStackModel model, IntroView introView, DecisionInputView decisionInputView)
+        public CardStackController(CardStackModel model, DecisionInputView decisionInputView)
         {
             _model = model;
-            _introView = introView;
             _decisionInputView = decisionInputView;
         }
 

@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MemoryGame.Card;
+using UniRx;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace MemoryGame.CardStack
 {
-    public class CardStackModel : IInitializable
+    public class CardStackModel : IInitializable, IDisposable
     {
         [Inject] private CardInstaller.CardFactory _cardFactory;
         [Inject] private Score _score;
@@ -16,6 +19,9 @@ namespace MemoryGame.CardStack
 
         private readonly Queue<CardModel> _cards = new();
         private CardModel _lastPlayedCard;
+
+        private readonly ReactiveProperty<int> _cardsLeft = new();
+        public IReadOnlyReactiveProperty<int> CardsLeft => _cardsLeft;
 
         public CardStackModel(uint cardAmount)
         {
@@ -31,6 +37,8 @@ namespace MemoryGame.CardStack
                     new CardInstaller.CardConstructArguments(Random.Range(0, 3), i, Vector3.right * _spacing * i));
                 _cards.Enqueue(card.Item1);
             }
+
+            _cardsLeft.Value = _cards.Count;
         }
 
         public void PlayNextCard()
@@ -40,6 +48,7 @@ namespace MemoryGame.CardStack
                 _lastPlayedCard = _cards.Peek();
                 _lastPlayedCard.OnPlayCard();
                 _lastPlayedCard = _cards.Dequeue();
+                _cardsLeft.Value = _cards.Count;
             }
         }
 
@@ -58,6 +67,11 @@ namespace MemoryGame.CardStack
         private bool IsLastCardSameAsCurrent()
         {
             return _cards.Any() && _lastPlayedCard.ID == _cards.Peek().ID;
+        }
+
+        public void Dispose()
+        {
+            _cardsLeft?.Dispose();
         }
     }
 }
