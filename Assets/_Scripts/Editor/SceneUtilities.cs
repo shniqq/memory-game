@@ -23,6 +23,7 @@ internal class SceneUtilities : ScriptableSingleton<SceneUtilities>
     }
 
     [SerializeField] private SceneAsset _sceneAsset;
+    [SerializeField] private bool _enabled;
 
     private static int _sceneIndex;
 
@@ -36,6 +37,21 @@ internal class SceneUtilities : ScriptableSingleton<SceneUtilities>
         }
 
         _sceneIndex = EditorGUILayout.Popup(_sceneIndex, _scenes.Select(e => e.Path).ToArray());
+        var previousEnabled = instance._enabled;
+        instance._enabled = EditorGUILayout.Toggle("Enabled", previousEnabled);
+
+        if (previousEnabled != instance._enabled)
+        {
+            if (instance._enabled)
+            {
+                ApplyStartScene();
+            }
+            else
+            {
+                EditorSceneManager.playModeStartScene = null;
+            }
+            instance.Save(true);
+        }
 
         if (GUILayout.Button("Save"))
         {

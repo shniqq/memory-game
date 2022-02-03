@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneAsset: {fileID: 102900000, guid: a808771b67e134012adcfb4e016487fa, type: 3}
+  _enabled: 1
