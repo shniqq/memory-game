@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MemoryGame.Card;
+using MemoryGame.Difficulty;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,7 @@ namespace MemoryGame.CardStack
         [Inject] private CardInstaller.CardFactory _cardFactory;
         [Inject] private Score _score;
         [Inject] private GameStateModel _gameStateModel;
+        [Inject] private ICardIdProvider _cardIdProvider;
         
 
         private readonly uint _cardAmount;
@@ -36,7 +38,7 @@ namespace MemoryGame.CardStack
             for (uint i = 0; i < _cardAmount; i++)
             {
                 var card = _cardFactory.Create(
-                    new CardInstaller.CardConstructArguments(Random.Range(0, 3), i, Vector3.right * _spacing * i));
+                    new CardInstaller.CardConstructArguments(_cardIdProvider.GetId(), i, Vector3.right * _spacing * i));
                 _cards.Enqueue(card.Item1);
             }
 

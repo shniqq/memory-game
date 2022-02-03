@@ -674,6 +674,7 @@ MonoBehaviour:
   _introView: {fileID: 2093971153}
   _decisionInputView: {fileID: 907060416}
   _hudView: {fileID: 2059774540}
+  _cardDistributionConfig: {fileID: 11400000, guid: 17ade4cab996642288e8f68d6dda06a5, type: 2}
   _cardAmount: 20
 --- !u!1 &1196599645
 GameObject:

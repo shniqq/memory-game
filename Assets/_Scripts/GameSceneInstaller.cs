@@ -1,4 +1,5 @@
 using MemoryGame.CardStack;
+using MemoryGame.Difficulty;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,7 @@ namespace MemoryGame
         [SerializeField] private IntroView _introView;
         [SerializeField] private DecisionInputView _decisionInputView;
         [SerializeField] private HudView _hudView;
+        [SerializeField] private CardDistributionConfig _cardDistributionConfig;
     
         [SerializeField] private uint _cardAmount;
 
@@ -22,6 +24,9 @@ namespace MemoryGame
             Container.BindInterfacesAndSelfTo<CardStackModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<CardStackController>().AsSingle().NonLazy();
             Container.BindInstance(_cardAmount).WhenInjectedInto<CardStackModel>();
+
+            Container.QueueForInject(_cardDistributionConfig);
+            Container.BindInterfacesTo<CardDistributionConfig>().FromInstance(_cardDistributionConfig).AsSingle();
 
             Container.BindInstance(_hudView).AsSingle();
             Container.BindInterfacesTo<HudController>().AsSingle().NonLazy();
