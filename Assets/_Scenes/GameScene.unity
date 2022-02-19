@@ -272,9 +272,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 54789986}
-  _quickFeedbackThreshold: 1
-  _veryQuickFeedbackThreshold: 0.5
-  _streakFeedbackThreshold: 3
 --- !u!1 &64257005
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,11 +662,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b274f8fc5e447639540930a4d00d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: {fileID: 54789988}
+  _scoreView: {fileID: 54789988}
   _cardStackView: {fileID: 64257006}
   _cardConfigProviders:
   - {fileID: 11400000, guid: 5b7fecbe281324f098bec2d1dcb9b72d, type: 2}
   - {fileID: 11400000, guid: 1f1bf135ee53a4d64930f2b392ddb990, type: 2}
+  _feedbackConfig: {fileID: 11400000, guid: 049b2d17735a647beb98a4a07a52f359, type: 2}
   _feedbackView: {fileID: 1586493893}
   _introView: {fileID: 2093971153}
   _decisionInputView: {fileID: 907060416}

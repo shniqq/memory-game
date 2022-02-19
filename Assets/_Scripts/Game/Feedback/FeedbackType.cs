@@ -1,4 +1,4 @@
-namespace MemoryGame.Game.Hud
+namespace MemoryGame.Game.Feedback
 {
     public enum FeedbackType
     {

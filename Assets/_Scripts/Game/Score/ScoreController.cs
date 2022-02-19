@@ -1,6 +1,7 @@
+using UniRx;
 using Zenject;
 
-namespace MemoryGame.Game
+namespace MemoryGame.Game.Score
 {
     public class ScoreController : IInitializable
     {
@@ -15,7 +16,7 @@ namespace MemoryGame.Game
 
         public void Initialize()
         {
-            
+            _model.Score.Subscribe(score => _view.DisplayScore(score)).AddTo(_view);
         }
     }
 }

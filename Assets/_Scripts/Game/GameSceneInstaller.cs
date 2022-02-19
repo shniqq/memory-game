@@ -1,7 +1,9 @@
 using MemoryGame.Game.Card;
 using MemoryGame.Game.CardStack;
 using MemoryGame.Game.Difficulty;
+using MemoryGame.Game.Feedback;
 using MemoryGame.Game.Hud;
+using MemoryGame.Game.Score;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +14,7 @@ namespace MemoryGame.Game
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private CardStackView _cardStackView;
         [SerializeField] private CardConfigProvider[] _cardConfigProviders;
+        [SerializeField] private FeedbackConfig _feedbackConfig;
         [SerializeField] private FeedbackView _feedbackView;
         [SerializeField] private IntroView _introView;
         [SerializeField] private DecisionInputView _decisionInputView;
@@ -43,6 +46,8 @@ namespace MemoryGame.Game
             Container.BindInterfacesTo<ScoreController>().AsSingle().NonLazy();
             Container.BindInstance(_introView).AsSingle();
             Container.BindInstance(_feedbackView).AsSingle();
+            Container.BindInterfacesTo<FeedbackController>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<FeedbackConfig>().FromInstance(_feedbackConfig).AsSingle();
             Container.BindInstance(_decisionInputView).AsSingle();
         }
     }

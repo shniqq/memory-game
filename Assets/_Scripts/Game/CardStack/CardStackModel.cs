@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MemoryGame.Game.Card;
 using MemoryGame.Game.Difficulty;
+using MemoryGame.Game.Score;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -12,10 +13,9 @@ namespace MemoryGame.Game.CardStack
     public class CardStackModel : IInitializable, IDisposable
     {
         [Inject] private CardInstaller.CardFactory _cardFactory;
-        [Inject] private ScoreView _scoreView;
+        [Inject] private ScoreModel _scoreModel;
         [Inject] private GameStateModel _gameStateModel;
         [Inject] private ICardIdProvider _cardIdProvider;
-        
 
         private readonly uint _cardAmount;
         private readonly float _spacing;
@@ -62,13 +62,13 @@ namespace MemoryGame.Game.CardStack
 
         public void OnDecidedEqualCard()
         {
-            _scoreView.OnPlayerChoice(IsLastCardSameAsCurrent());
+            _scoreModel.OnPlayerChoice(IsLastCardSameAsCurrent());
             PlayNextCard();
         }
 
         public void OnDecidedDifferentCard()
         {
-            _scoreView.OnPlayerChoice(!IsLastCardSameAsCurrent());
+            _scoreModel.OnPlayerChoice(!IsLastCardSameAsCurrent());
             PlayNextCard();
         }
 

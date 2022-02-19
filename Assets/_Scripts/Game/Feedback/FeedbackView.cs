@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MemoryGame.Game.Hud
+namespace MemoryGame.Game.Feedback
 {
     public class FeedbackView : MonoBehaviour
     {
