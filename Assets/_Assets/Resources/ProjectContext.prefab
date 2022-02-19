@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7306c9e66864777bfc8b789c1594fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customSeed: 1
+  _customSeed: 0
   _seed: 1337
-  _saveRandomNumbers: 1
-  _randomNumbersFromFile: 1
+  _saveRandomNumbers: 0
+  _randomNumbersFromFile: 0
   _randomNumbers: {fileID: 4900000, guid: 58b69d91567f24f458e39c6289bd4775, type: 3}
