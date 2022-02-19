@@ -385,6 +385,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playButton: {fileID: 1065745153}
   _mainMenuCanvas: {fileID: 789549227}
+  _titleText: {fileID: 1515365141}
+  _scale: 1.25
+  _scaleDuration: 2
+  _rotateDuration: 4
+  _rotate: 5
 --- !u!1 &1065745151
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +595,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: acd20fac67cea404a8235243157cf54f, type: 2}
   - {fileID: 11400000, guid: b98e7e957c6bf431381ee6e5d3f3e8fe, type: 2}
   _cardPrefab: {fileID: -2920164665471428512, guid: 698e3d3bd862f4ca18203ff958ff6220, type: 3}
+  _mainMenuView: {fileID: 789549229}
 --- !u!1 &1266190455
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,11 +964,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1515365140}
-  - component: {fileID: 1515365143}
   - component: {fileID: 1515365142}
   - component: {fileID: 1515365141}
   m_Layer: 5
-  m_Name: Intro
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1087,23 +1092,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515365139}
   m_CullTransparentMesh: 1
---- !u!114 &1515365143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515365139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae026c321f54f4449b3d830751e5279c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _titleText: {fileID: 1515365141}
-  _scale: 1.25
-  _scaleDuration: 2
-  _rotateDuration: 4
-  _rotate: 5
 --- !u!1 &1635839713
 GameObject:
   m_ObjectHideFlags: 0
