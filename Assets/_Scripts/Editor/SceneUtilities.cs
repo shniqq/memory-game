@@ -4,81 +4,84 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-[FilePath(SettingsAssetPath, FilePathAttribute.Location.ProjectFolder)]
-internal class SceneUtilities : ScriptableSingleton<SceneUtilities>
+namespace Editor
 {
-    private const string SettingsAssetPath = "ProjectSettings/Scene Utilities/Settings.asset";
-    private static readonly string SettingsPath = "Project/Scene Utilities";
-
-    [SettingsProvider]
-    public static SettingsProvider CreateSettingsProvider()
+    [FilePath(SettingsAssetPath, FilePathAttribute.Location.ProjectFolder)]
+    internal class SceneUtilities : ScriptableSingleton<SceneUtilities>
     {
-        var provider = new SettingsProvider(SettingsPath, SettingsScope.Project)
+        private const string SettingsAssetPath = "ProjectSettings/Scene Utilities/Settings.asset";
+        private const string SettingsPath = "Project/Scene Utilities";
+
+        [SettingsProvider]
+        public static SettingsProvider CreateSettingsProvider()
         {
-            guiHandler = _ => { DrawSettings(); },
-            keywords = new HashSet<string>(new[] { "Scenes", "Editor", "Utils" })
-        };
+            var provider = new SettingsProvider(SettingsPath, SettingsScope.Project)
+            {
+                guiHandler = _ => { DrawSettings(); },
+                keywords = new HashSet<string>(new[] { "Scenes", "Editor", "Utils" })
+            };
 
-        return provider;
-    }
-
-    [SerializeField] private SceneAsset _sceneAsset;
-    [SerializeField] private bool _enabled;
-
-    private static int _sceneIndex;
-
-    private static List<(string Path, SceneAsset Asset)> _scenes = new();
-
-    private static void DrawSettings()
-    {
-        if (GUILayout.Button("Refresh Scenes"))
-        {
-            RefreshScenes();
+            return provider;
         }
 
-        _sceneIndex = EditorGUILayout.Popup(_sceneIndex, _scenes.Select(e => e.Path).ToArray());
-        var previousEnabled = instance._enabled;
-        instance._enabled = EditorGUILayout.Toggle("Enabled", previousEnabled);
+        [SerializeField] private SceneAsset _sceneAsset;
+        [SerializeField] private bool _enabled;
 
-        if (previousEnabled != instance._enabled)
+        private static int _sceneIndex;
+
+        private static List<(string Path, SceneAsset Asset)> _scenes = new();
+
+        private static void DrawSettings()
         {
-            if (instance._enabled)
+            if (GUILayout.Button("Refresh Scenes"))
             {
+                RefreshScenes();
+            }
+
+            _sceneIndex = EditorGUILayout.Popup(_sceneIndex, _scenes.Select(e => e.Path).ToArray());
+            var previousEnabled = instance._enabled;
+            instance._enabled = EditorGUILayout.Toggle("Enabled", previousEnabled);
+
+            if (previousEnabled != instance._enabled)
+            {
+                if (instance._enabled)
+                {
+                    ApplyStartScene();
+                }
+                else
+                {
+                    EditorSceneManager.playModeStartScene = null;
+                }
+                instance.Save(true);
+            }
+
+            if (GUILayout.Button("Save"))
+            {
+                instance._sceneAsset = _scenes[_sceneIndex].Asset;
                 ApplyStartScene();
+                instance.Save(true);
             }
-            else
+        }
+
+        [InitializeOnLoadMethod]
+        private static void ApplyStartScene()
+        {
+            if (instance._sceneAsset != null)
             {
-                EditorSceneManager.playModeStartScene = null;
+                EditorSceneManager.playModeStartScene = instance._sceneAsset;
             }
-            instance.Save(true);
         }
 
-        if (GUILayout.Button("Save"))
+        [InitializeOnLoadMethod]
+        private static void RefreshScenes()
         {
-            instance._sceneAsset = _scenes[_sceneIndex].Asset;
-            ApplyStartScene();
-            instance.Save(true);
+            _scenes = AssetDatabase.FindAssets($"t:{nameof(SceneAsset)}")
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Select(e => (e, AssetDatabase.LoadAssetAtPath<SceneAsset>(e)))
+                .ToList();
+            _sceneIndex = _scenes.FirstOrDefault(e => e.Asset == instance._sceneAsset) != default
+                ? _scenes.IndexOf(_scenes.FirstOrDefault(e => e.Asset == instance._sceneAsset))
+                : 0;
         }
-    }
-
-    [InitializeOnLoadMethod]
-    private static void ApplyStartScene()
-    {
-        if (instance._sceneAsset != null)
-        {
-            EditorSceneManager.playModeStartScene = instance._sceneAsset;
-        }
-    }
-
-    [InitializeOnLoadMethod]
-    private static void RefreshScenes()
-    {
-        _scenes = AssetDatabase.FindAssets($"t:{nameof(SceneAsset)}")
-            .Select(AssetDatabase.GUIDToAssetPath)
-            .Select(e => (e, AssetDatabase.LoadAssetAtPath<SceneAsset>(e)))
-            .ToList();
-        _sceneIndex = _scenes.FirstOrDefault(e => e.Asset == instance._sceneAsset) != default
-            ? _scenes.IndexOf(_scenes.FirstOrDefault(e => e.Asset == instance._sceneAsset))
-            : 0;
     }
 }
