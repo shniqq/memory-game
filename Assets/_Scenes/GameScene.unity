@@ -673,6 +673,7 @@ MonoBehaviour:
   _decisionInputView: {fileID: 907060416}
   _hudView: {fileID: 2059774540}
   _cardDistributionConfig: {fileID: 11400000, guid: 17ade4cab996642288e8f68d6dda06a5, type: 2}
+  _cardPrefab: {fileID: -2920164665471428512, guid: 698e3d3bd862f4ca18203ff958ff6220, type: 3}
   _cardAmount: 20
 --- !u!1 &1196599645
 GameObject:
