@@ -30,7 +30,7 @@ namespace MemoryGame.Game.CardStack
             {
                 var card = _cardFactory.Create(
                     new CardInstaller.CardConstructArguments(_cardIdProvider.GetId(), i, Vector3.right * _cardStackConfig.Spacing * i));
-                _cards.Enqueue(card.Item1);
+                _cards.Enqueue(card);
             }
 
             _cardsLeft.Value = _cards.Count;

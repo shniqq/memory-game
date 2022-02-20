@@ -35,8 +35,7 @@ namespace MemoryGame.Game
             InstallFeedback();
 
             Container
-                .BindFactory<CardInstaller.CardConstructArguments, Tuple<CardModel, CardView>,
-                    CardInstaller.CardFactory>()
+                .BindFactory<CardInstaller.CardConstructArguments, CardModel, CardInstaller.CardFactory>()
                 .FromSubContainerResolve()
                 .ByNewContextPrefab<CardInstaller>(_cardPrefab);
         }

@@ -20,7 +20,7 @@ namespace MemoryGame.Game.Card
             }
         }
 
-        public class CardFactory : PlaceholderFactory<CardConstructArguments, Tuple<CardModel, CardView>>
+        public class CardFactory : PlaceholderFactory<CardConstructArguments, CardModel>
         {
         }
 
@@ -40,10 +40,6 @@ namespace MemoryGame.Game.Card
             Container.BindInterfacesAndSelfTo<CardView>()
                 .FromComponentInHierarchy()
                 .AsCached();
-
-            Container.Bind<Tuple<CardModel, CardView>>().FromMethod(() =>
-                    new Tuple<CardModel, CardView>(Container.Resolve<CardModel>(), Container.Resolve<CardView>()))
-                .AsSingle();
         }
     }
 }
