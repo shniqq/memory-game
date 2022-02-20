@@ -16,9 +16,7 @@ namespace MemoryGame.Game.CardStack
         [Inject] private ScoreModel _scoreModel;
         [Inject] private GameStateModel _gameStateModel;
         [Inject] private ICardIdProvider _cardIdProvider;
-
-        private readonly uint _cardAmount;
-        private readonly float _spacing;
+        [Inject] private ICardStackConfig _cardStackConfig;
 
         private readonly Queue<CardModel> _cards = new();
         private CardModel _lastPlayedCard;
@@ -26,18 +24,12 @@ namespace MemoryGame.Game.CardStack
         private readonly ReactiveProperty<int> _cardsLeft = new();
         public IReadOnlyReactiveProperty<int> CardsLeft => _cardsLeft;
 
-        public CardStackModel(uint cardAmount)
-        {
-            _cardAmount = cardAmount;
-            _spacing = 0.2f;
-        }
-
         public void Initialize()
         {
-            for (uint i = 0; i < _cardAmount; i++)
+            for (uint i = 0; i < _cardStackConfig.CardAmount; i++)
             {
                 var card = _cardFactory.Create(
-                    new CardInstaller.CardConstructArguments(_cardIdProvider.GetId(), i, Vector3.right * _spacing * i));
+                    new CardInstaller.CardConstructArguments(_cardIdProvider.GetId(), i, Vector3.right * _cardStackConfig.Spacing * i));
                 _cards.Enqueue(card.Item1);
             }
 
