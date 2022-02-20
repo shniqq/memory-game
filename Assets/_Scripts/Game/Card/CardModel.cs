@@ -6,11 +6,11 @@ namespace MemoryGame.Game.Card
     public class CardModel
     {
         private readonly GameStateModel _gameStateModel;
-        public uint Index { get; }
+        private uint Index { get; }
         public int ID { get; }
 
-        public IObservable<Unit> OnPlayedCard => _onPlayedCard;
-        private readonly Subject<Unit> _onPlayedCard = new();
+        public IReadOnlyReactiveProperty<bool> HasBeenPlayed => _hasBeenPlayed;
+        private readonly ReactiveProperty<bool> _hasBeenPlayed = new();
 
         public CardModel(int id, uint index, GameStateModel gameStateModel)
         {
@@ -19,9 +19,9 @@ namespace MemoryGame.Game.Card
             ID = id;
         }
 
-        public void OnPlayCard()
+        public void PlayCard()
         {
-            _onPlayedCard.OnNext(Unit.Default);
+            _hasBeenPlayed.Value = true;
         }
 
         public void OnCompletedIntro()

@@ -46,7 +46,7 @@ namespace MemoryGame.Game.CardStack
             if (_cards.Any())
             {
                 _lastPlayedCard = _cards.Peek();
-                _lastPlayedCard.OnPlayCard();
+                _lastPlayedCard.PlayCard();
                 _lastPlayedCard = _cards.Dequeue();
                 _cardsLeft.Value = _cards.Count;
             }

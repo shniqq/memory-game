@@ -42,9 +42,7 @@ namespace MemoryGame.Game
 
         private void InstallConfigs()
         {
-            Container.BindInterfacesTo<CardStackConfig>()
-                .FromInstance(_cardStackConfig)
-                .WhenInjectedInto<CardStackModel>();
+            Container.BindInterfacesTo<CardStackConfig>().FromInstance(_cardStackConfig).AsSingle();
             Container.QueueForInject(_cardDistributionConfig);
             Container.BindInterfacesTo<CardDistributionConfig>().FromInstance(_cardDistributionConfig).AsSingle();
             Container.BindInterfacesAndSelfTo<CardConfigProvider>()

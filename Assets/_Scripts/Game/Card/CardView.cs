@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using MemoryGame.Game.CardStack;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,6 +11,7 @@ namespace MemoryGame.Game.Card
 {
     public class CardView : MonoBehaviour
     {
+        [SerializeField] private Transform _cardRoot;
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField, Range(0, 5)] private float _cardPlayDuration;
         [SerializeField, Range(0, 5f)] private float _introDuration;
@@ -37,6 +39,7 @@ namespace MemoryGame.Game.Card
 
         [Inject] private Vector3 _position;
         [Inject] private ICardColorProvider _cardColorProvider;
+        [Inject] private ICardStackConfig _cardStackConfig;
 
         private int _index;
 
@@ -46,15 +49,22 @@ namespace MemoryGame.Game.Card
         private void Awake()
         {
             _onCompletedIntroAnimation.AddTo(this);
-            transform.position = Vector3.down * 30f + Vector3.back * 10f;
+            _cardRoot.position = Vector3.down * 30f + Vector3.back * 10f;
 
             _frontBackground.color = _cardColorProvider.GetCardColor(_index);
+        }
+
+        public void MoveCardToTheLeft()
+        {
+            var newPosition = _cardRoot.position;
+            newPosition.x -= _cardStackConfig.Spacing;
+            _cardRoot.position = newPosition;
         }
 
         public void PlayIntroAnimation()
         {
             DOTween.Sequence()
-                .Insert(0f, transform.DOMoveY(_position.y, _introDuration * 0.6f).SetEase(Ease.OutBack))
+                .Insert(0f, _cardRoot.DOMoveY(_position.y, _introDuration * 0.6f).SetEase(Ease.OutBack))
                 .InsertCallback(0f, () =>
                 {
                     if (_index == 0)
@@ -62,8 +72,10 @@ namespace MemoryGame.Game.Card
                         PlayRandomCardSound();
                     }
                 })
-                .Insert(_introDuration * 0.6f, transform.DOMoveX(_position.x, _introDuration * 0.3f).SetEase(Ease.Linear))
-                .Insert(_introDuration * 0.6f, transform.DOMoveZ(_position.z, _introDuration * 0.3f).SetEase(Ease.Linear))
+                .Insert(_introDuration * 0.6f,
+                    _cardRoot.DOMoveX(_position.x, _introDuration * 0.3f).SetEase(Ease.Linear))
+                .Insert(_introDuration * 0.6f,
+                    _cardRoot.DOMoveZ(_position.z, _introDuration * 0.3f).SetEase(Ease.Linear))
                 .InsertCallback(_introDuration * 0.6f, () =>
                 {
                     if (_index == 0)
@@ -89,8 +101,8 @@ namespace MemoryGame.Game.Card
         {
             PlayRandomCardSound();
             DOTween.Sequence().SetEase(_cardPlayEase)
-                .Insert(0f, transform.DORotate(new Vector3(0, 180, 0), _cardPlayDuration, RotateMode.WorldAxisAdd))
-                .Insert(0f, transform.DOMoveX(-transform.position.x, _cardPlayDuration))
+                .Insert(0f, _cardRoot.DORotate(new Vector3(0, 180, 0), _cardPlayDuration, RotateMode.WorldAxisAdd))
+                .Insert(0f, _cardRoot.DOMoveX(-_cardRoot.position.x, _cardPlayDuration))
                 .InsertCallback(0.5f, () => _sortingGroup.sortingOrder = _index);
         }
 

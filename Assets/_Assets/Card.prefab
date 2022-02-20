@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510eb189c925439f8d5bc3749380bf80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardRoot: {fileID: 29037714959680922}
   _sortingGroup: {fileID: 29037714959680921}
   _cardPlayDuration: 2
   _introDuration: 2
