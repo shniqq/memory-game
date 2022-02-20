@@ -80,6 +80,10 @@ namespace MemoryGame.Game
 
         private void InstallFeedback()
         {
+            Container.BindInterfacesTo<WrongFeedbackStrategy>().AsCached();
+            Container.BindInterfacesTo<QuickFeedbackStrategy>().AsCached();
+            Container.BindInterfacesTo<StreakFeedbackStrategy>().AsCached();
+            
             Container.BindInstance(_feedbackView).AsSingle();
             Container.BindInterfacesTo<FeedbackController>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FeedbackConfig>().FromInstance(_feedbackConfig).AsSingle();

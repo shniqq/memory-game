@@ -10,20 +10,22 @@ namespace MemoryGame.Game.Score
     {
         private readonly IFeedbackConfig _feedbackConfig;
         private bool _wasLastScoreRight;
-        private int _streak;
         private DateTime _lastChoiceTimeStamp;
 
-        public IObservable<FeedbackType[]> OnShowFeedback => _onShowFeedback;
-        private readonly Subject<FeedbackType[]> _onShowFeedback = new();
+        public int Streak => _streak;
+        private int _streak;
+
+        public IObservable<FeedbackType> OnShowFeedback => _onShowFeedback;
+        private readonly Subject<FeedbackType> _onShowFeedback = new();
 
         public IReadOnlyReactiveProperty<int> Score => _score;
-        private ReactiveProperty<int> _score = new();
+        private readonly ReactiveProperty<int> _score = new();
 
         public ScoreModel(IFeedbackConfig feedbackConfig)
         {
             _feedbackConfig = feedbackConfig;
         }
-        
+
         public void OnPlayerChoice(bool playerChooseRight)
         {
             if (playerChooseRight)
@@ -42,22 +44,23 @@ namespace MemoryGame.Game.Score
         {
             _wasLastScoreRight = false;
             _streak = 0;
-            _onShowFeedback.OnNext(new[] { FeedbackType.Wrong });
+            _onShowFeedback.OnNext(FeedbackType.Wrong);
         }
 
         private void OnPlayerChoseRight()
         {
             _score.Value++;
 
-            var feedback = new List<FeedbackType>();
+            FeedbackType? feedback = null;
+
+            if ((DateTime.UtcNow - _lastChoiceTimeStamp).TotalSeconds < _feedbackConfig.QuickFeedbackThreshold)
+            {
+                feedback = FeedbackType.Quick;
+            }
 
             if ((DateTime.UtcNow - _lastChoiceTimeStamp).TotalSeconds < _feedbackConfig.VeryQuickFeedbackThreshold)
             {
-                feedback.Add(FeedbackType.VeryQuick);
-            }
-            else if ((DateTime.UtcNow - _lastChoiceTimeStamp).TotalSeconds < _feedbackConfig.QuickFeedbackThreshold)
-            {
-                feedback.Add(FeedbackType.Quick);
+                feedback = FeedbackType.VeryQuick;
             }
 
             if (_wasLastScoreRight)
@@ -67,11 +70,14 @@ namespace MemoryGame.Game.Score
 
             if (_streak >= _feedbackConfig.StreakFeedbackThreshold)
             {
-                feedback.Add(FeedbackType.Streak);
+                feedback = FeedbackType.Streak;
             }
 
             _wasLastScoreRight = true;
-            _onShowFeedback.OnNext(feedback.ToArray());
+            if (feedback.HasValue)
+            {
+                _onShowFeedback.OnNext(feedback.Value);
+            }
         }
     }
 }

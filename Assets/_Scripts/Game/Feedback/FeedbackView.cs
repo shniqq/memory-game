@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -13,17 +11,13 @@ namespace MemoryGame.Game.Feedback
 
         private void Awake()
         {
-            _text.gameObject.SetActive(false); 
+            _text.gameObject.SetActive(false);
         }
 
-        public void ShowFeedback(params FeedbackType[] feedback)
+        public void ShowFeedbackText(string text, Color color)
         {
-            _text.color = feedback.Contains(FeedbackType.Wrong) ? Color.red : Color.white;
-        
-            var feedbackText = feedback
-                .Aggregate(string.Empty, (current, feedbackType) => current + $"{feedbackType}{Environment.NewLine}");
-
-            _text.text = feedbackText;
+            _text.color = color;
+            _text.text = text;
             _text.gameObject.SetActive(true);
             _text.rectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(-20, 20)));
             _text.rectTransform
