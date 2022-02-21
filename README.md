@@ -1,6 +1,8 @@
 # Memory Game
 
-A simple memory game implemented in Unity using Zenject and UniRx and MVC as architecture.
+A simple memory game implemented in Unity using Zenject and UniRx and MVC as architecture.   
+
+![Memory Game Example GIF](MemoryGame.gif)
 
 ## License:
 
